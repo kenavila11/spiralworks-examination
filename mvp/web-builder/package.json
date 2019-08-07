@@ -4,8 +4,11 @@
   "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "draft-js": "^0.11.0",
+    "draftjs-to-html": "^0.8.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-draft-wysiwyg": "^1.13.2",
     "react-scripts": "3.0.1"
   },
   "scripts": {

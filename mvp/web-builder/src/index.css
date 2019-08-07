@@ -28,6 +28,12 @@ code {
   margin: 2px;
 }
 
+.columnInner {
+  outline: 2px dashed #ddd;
+  position: relative;
+  overflow: hidden;
+}
+
 .kenModal {
   position: fixed;
   background: rgba(0,0,0,0.2);
@@ -39,7 +45,7 @@ code {
 
 .kenModal-inner {
   max-width: 50%;
-  margin: 100px auto 0;
+  margin: 50px auto 0;
   background-color: #fff;
   padding: 15px;
   position: relative;
