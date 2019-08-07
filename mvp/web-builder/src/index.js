@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Index from './components/index';
 import * as serviceWorker from './serviceWorker';
+import Index from './components/index';
 
 ReactDOM.render(<Index />, document.getElementById('root'));
 
