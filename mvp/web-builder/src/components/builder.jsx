@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
-import { EditorState, convertToRaw } from 'draft-js';
+import { EditorState, convertToRaw, ContentState  } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html';
 import htmlToDraft from 'html-to-draftjs';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-
 
 import jsonData from '../db.json';
 import Row from './row';
 import Column from './column';
 import KenModal from './kenmodal';
 
-class Index extends Component {
+class Builder extends Component {
 
     constructor(props) {
         super(props);
@@ -57,10 +56,13 @@ class Index extends Component {
             return <div className="content" dangerouslySetInnerHTML={{__html: content}}></div>;
         }
 
-        const { editorState } = this.state
+        const { editorState } = this.state;
+
         return (
             <div className="container">
-                <button onClick={ this.addRow }>Add Row</button>
+                <div className="row justify-content-end">
+                    <button className="btn btn-secondary mb-2" onClick={ this.addRow }>Add Row</button>
+                </div>
                 { this.state.rows.map(row => 
                     <Row 
                         key={row.id} 
@@ -84,13 +86,14 @@ class Index extends Component {
                     title={this.state.modalState.title}
                     onClose={this.closeModal}>
                         <Editor
-                                editorState={editorState}
-                                onEditorStateChange={this.onEditorStateChange}
-                                wrapperClassName="wrapper-class"
-                                editorClassName="editor-class"
-                                toolbarClassName="toolbar-class"
-                                editorStyle={ {backgroundColor: "#fff", padding: "0px 15px", maxHeight: "150px"} }
-                                />
+                            editorState={editorState}
+                            onEditorStateChange={this.onEditorStateChange}
+                            wrapperClassName="wrapper-class"
+                            editorClassName="editor-class"
+                            toolbarClassName="toolbar-class"
+                            wrapperStyle={ {backgroundColor: "#fff", margin: "10px 0px 10px"} }
+                            editorStyle={ {backgroundColor: "#fff", padding: "0px 15px", maxHeight: "150px", minHeight: "100px"} }
+                            />
                         {this.state.modalState.body}
                 </KenModal>
             </div>
@@ -177,14 +180,22 @@ class Index extends Component {
 
 
     addColumn(rowId) {
+
+        const editorContent = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()));
         const colWidth = parseInt(document.getElementById("columnWidth").value);
+
+        this.setState({
+            editorState: EditorState.createEmpty()
+        })
+
         this.setState({
             rows: this.state.rows.map(function(row) {
                 if(row.id === rowId) {
                     let currentCols = (row.columns) ? row.columns : [];
                     currentCols.push({
                         "id": ( currentCols.length ) ? currentCols.slice(-1)[0]["id"]+1 : 1, 
-                        "width": colWidth
+                        "width": colWidth,
+                        "content": editorContent
                     })
                     return Object.assign({}, row, { "columns": currentCols });
                 }else{
@@ -201,6 +212,14 @@ class Index extends Component {
         for(let i = 1; i <= 12; i++ ) { widthOpts.push(<option key={i} value={i}>{i}</option>) }
 
         const { editorState } = this.state;
+
+        const blocksFromHtml = htmlToDraft(col.content);
+        const { contentBlocks, entityMap } = blocksFromHtml;
+        const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+        const renderContent = EditorState.createWithContent(contentState);
+        this.setState({
+            editorState: renderContent
+        });
         
         this.setState({
             modalState: {
@@ -234,9 +253,6 @@ class Index extends Component {
                                     })
                                 }}
                                 >Update Column</button>
-                                {/* <button onClick={() => {
-                                    console.log(draftToHtml(convertToRaw(this.state.editorState.getCurrentContent())));
-                                }}>KEN</button> */}
                         </div>
                     </div>
             }
@@ -264,4 +280,4 @@ class Index extends Component {
     }
 }
  
-export default Index;
+export default Builder;

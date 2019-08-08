@@ -15,6 +15,17 @@ code {
 /* 
  * CUSTOM CSS
  */
+
+header#header {
+  background-color: #6e1a1a;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+header#header h3 {
+  margin: 15px 0px;
+}
+
 .rowOptions,
 .colOptions {
   position: absolute;
@@ -32,6 +43,7 @@ code {
   outline: 2px dashed #ddd;
   position: relative;
   overflow: hidden;
+  min-height: 30px;
 }
 
 .kenModal {

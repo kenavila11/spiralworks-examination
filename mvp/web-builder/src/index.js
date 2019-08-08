@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from './serviceWorker';
-import Index from './components/index';
+import Builder from './components/builder';
+import Header from './components/header'
 
-ReactDOM.render(<Index />, document.getElementById('root'));
+ReactDOM.render(<Header />, document.getElementById('header'));
+ReactDOM.render(<Builder />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
