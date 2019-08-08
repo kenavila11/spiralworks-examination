@@ -6,7 +6,7 @@ A proof of concept of a Simple Web Page Builder.
 
 ## Available Scripts
 
-Go to mvp/simple-web-page-builder, install all dependencies:
+Go to mvp/simple-web-page-builder, then install all the dependencies:
 
 ### `npm install`
 
