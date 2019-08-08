@@ -1,4 +1,4 @@
-This is a mvp web app for SpiralWorks Examination.
+This is an mvp web app for SpiralWorks Examination.
 
 ## Description
 
