@@ -151,20 +151,17 @@ class Builder extends Component {
                 styles: { display: "block" },
                 title: <h4>Editing Row ID: {rowId}</h4>,
                 body: <div>
-                        <label>Column</label>
-                        <div className="form-group row">
-                            <label className="col-sm-2 col-form-label-sm">Width</label>
-                            <div className="col-sm-2">
-                                <select name="columnWidth" onChange={this.handleChange} defaultValue="1" className="form-control form-control-sm" id="columnWidth">
-                                    {widthOpts}
-                                </select>
-                            </div>
-                            <div className="col-sm-8">
-                                <button 
-                                    className="btn btn-sm btn-primary" 
-                                    onClick={() => this.addColumn(rowId)}
-                                    >Add Column</button>
-                            </div>
+                        <div className="form-group">
+                            <label>Width</label>
+                            <select name="columnWidth" onChange={this.handleChange} defaultValue="1" className="form-control form-control-sm" id="columnWidth">
+                                {widthOpts}
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <button 
+                                className="btn btn-sm btn-primary btn-block" 
+                                onClick={() => this.addColumn(rowId)}
+                                >Add Column</button>
                         </div>
                     </div>
             }
@@ -234,7 +231,7 @@ class Builder extends Component {
                         </div>
                         <div className="form-group">
                             <button 
-                                className="btn btn-sm btn-primary" 
+                                className="btn btn-sm btn-primary btn-block" 
                                 onClick={() => {
                                     const colWidth = parseInt(document.getElementById("columnWidth").value);
                                     this.setState({
